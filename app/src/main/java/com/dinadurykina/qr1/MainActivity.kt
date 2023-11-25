@@ -21,6 +21,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.view.View
 import android.widget.CheckBox
 import android.widget.TextView
+import android.widget.Toast
 import com.google.mlkit.common.MlKitException
 import com.google.mlkit.vision.barcode.common.Barcode
 import com.google.mlkit.vision.codescanner.GmsBarcodeScannerOptions
@@ -61,6 +62,7 @@ class MainActivity : AppCompatActivity() {
       .startScan()
       .addOnSuccessListener { barcode: Barcode ->
         barcodeResultView!!.text = getSuccessfulMessage(barcode)
+        Toast.makeText(this,getSuccessfulMessage(barcode),Toast.LENGTH_LONG).show()
       }
       .addOnFailureListener { e: Exception -> barcodeResultView!!.text = getErrorMessage(e) }
       .addOnCanceledListener {
@@ -90,7 +92,8 @@ class MainActivity : AppCompatActivity() {
         barcode.format,
         barcode.valueType
       )
-    return getString(R.string.barcode_result, barcodeValue)
+//    return getString(R.string.barcode_result, barcodeValue)
+    return  barcodeValue
   }
 
   private fun getErrorMessage(e: Exception): String? {
